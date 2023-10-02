@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid } from '@material-ui/core';
 
-import { getPlacesData, getWeatherData } from './api/travelAdvisorAPI';
+import { getPlacesData, getWeatherData, getPropertyData } from './api/travelAdvisorAPI';
 import Header from './components/Header/Header';
 import List from './components/List/List';
 import Map from './components/Map/Map';
@@ -37,6 +37,10 @@ const App = () => {
     if (bounds) {
       setIsLoading(true);
 
+      getPropertyData('Rental')
+        .then((data) => {
+          console.log(data);
+        });
       getWeatherData(coords.lat, coords.lng)
         .then((data) => setWeatherData(data));
 

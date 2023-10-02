@@ -2,7 +2,6 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import Rating from '@material-ui/lab/Rating';
 
 import mapStyles from '../../mapStyles';
 import useStyles from './styles.js';
@@ -34,7 +33,7 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
             key={i}
           >
             {!matches
-              ? <LocationOnOutlinedIcon color="primary" fontSize="large" />
+              ? <LocationOnOutlinedIcon color="primary" fontSize="small" />
               : (
                 <Paper elevation={3} className={classes.paper}>
                   <Typography className={classes.typography} variant="subtitle2" gutterBottom> {place.name}</Typography>
@@ -42,7 +41,6 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
                     className={classes.pointer}
                     src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
                   />
-                  <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
                 </Paper>
               )}
           </div>

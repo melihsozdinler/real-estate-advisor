@@ -22,6 +22,17 @@ export const getPlacesData = async (type, sw, ne) => {
   }
 };
 
+export const getPropertyData = async (status) => {
+  try {
+    const { data: { data } } = await axios.get(`http://localhost:8081/db/properties/filter?status=${status}`, {
+    });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getWeatherData = async (lat, lng) => {
   try {
     if (lat && lng) {
