@@ -1,7 +1,7 @@
-# Travel Advisor
+# Real Estate Advisor
 
-![Travel Advisor](https://i.ibb.co/qph2cZn/image.pngg)
+![Real Estate Advisor](https://imageupload.io/ib/l2vwnwK6IMhXX5n_1696283872.png)
 
 ## Introduction
-Build and Deploy an advanced Travel Companion Application using Google Maps. With Geolocation, Google Maps API, Searching for places, Fetching restaurants, hotels and attractions based on location from specialized Rapid APIs, data filtering and much more.
+Build and Deploy an advanced Real Estate Advisor Application using Google Maps. With Geolocation, Google Maps API, Searching for property based on location
 
