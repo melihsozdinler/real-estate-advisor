@@ -41,6 +41,7 @@ const App = () => {
         .then((data) => {
           console.log(data);
         });
+
       getWeatherData(coords.lat, coords.lng)
         .then((data) => setWeatherData(data));
 
