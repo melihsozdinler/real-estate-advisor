@@ -6,7 +6,7 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import mapStyles from '../../mapStyles';
 import useStyles from './styles.js';
 
-const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherData }) => {
+const Map = ({ coords, places, setCoords, setBounds, setChildClicked }) => {
   const matches = useMediaQuery('(min-width:600px)');
   const classes = useStyles();
 
@@ -16,7 +16,7 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
         defaultCenter={coords}
         center={coords}
-        defaultZoom={14}
+        defaultZoom={16}
         margin={[50, 50, 50, 50]}
         options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
         onChange={(e) => {
@@ -35,19 +35,19 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
             {!matches
               ? <LocationOnOutlinedIcon color="primary" fontSize="small" />
               : (
-                <Paper elevation={3} className={classes.paper}>
-                  <Typography className={classes.typography} variant="subtitle2" gutterBottom> {place.name}</Typography>
+                <Paper
+                  elevation={3}
+                  className={classes.paper}
+                >
                   <img
                     className={classes.pointer}
-                    src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                    style={{ height: '40px', width: '40px' }}
+                    src={place.status === 'Rental' ? '/for_rent.png' : '/for_sale.png'}
                   />
+                  <Typography className={classes.typography} variant="subtitle1" gutterBottom> {place.name}</Typography>
+                  <Typography className={classes.typography} variant="inherit" gutterBottom> Cost: {Intl.NumberFormat('tr-TR').format(place.price)} TL</Typography>
                 </Paper>
               )}
-          </div>
-        ))}
-        {weatherData?.list?.length && weatherData.list.map((data, i) => (
-          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-            <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
           </div>
         ))}
       </GoogleMapReact>
