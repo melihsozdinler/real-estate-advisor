@@ -17,15 +17,15 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         <Box display="flex" justifyContent="left" my={2}>
           <img
             style={{ height: '100px', width: '100px', margin: '2px' }}
-            src={`/sample${Math.floor(Math.random() * 7) + 1}.png`}
+            src={`/sample/sample${Math.floor(Math.random() * 7) + 1}.png`}
           />
           <img
             style={{ height: '100px', width: '100px', margin: '2px' }}
-            src={`/sample${Math.floor(Math.random() * 7) + 1}.png`}
+            src={`/sample/sample${Math.floor(Math.random() * 7) + 1}.png`}
           />
           <img
             style={{ height: '100px', width: '100px', margin: '2px' }}
-            src={`/sample${Math.floor(Math.random() * 7) + 1}.png`}
+            src={`/sample/sample${Math.floor(Math.random() * 7) + 1}.png`}
           />
         </Box>
         <Box display="flex" justifyContent="left" my={2}>
@@ -37,6 +37,9 @@ const PlaceDetails = ({ place, selected, refProp }) => {
           <Typography gutterBottom variant="subtitle1">
             {Intl.NumberFormat('tr-TR').format(place.price)} TL
           </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography component="legend">{place.extraInfo}</Typography>
         </Box>
         {place.address && (
           <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>

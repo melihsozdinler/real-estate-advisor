@@ -40,11 +40,12 @@ const App = () => {
 
       getPropertyData(status, searchText)
         .then((data) => {
-          setPlaces(data.filter((place) => place.name && place.reviews > 0));
-          setFilteredPlaces([]);
-          setRating('');
-          setIsLoading(false);
-          console.log(data);
+          if (data !== null) {
+            setPlaces(data.filter((place) => place.name && place.reviews > 0));
+            setFilteredPlaces([]);
+            setRating('');
+            setIsLoading(false);
+          }
         });
     }
   }, [bounds, status, searchEnter]);

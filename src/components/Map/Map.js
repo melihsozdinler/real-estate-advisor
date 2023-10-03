@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Paper, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 
 import mapStyles from '../../mapStyles';
@@ -9,6 +9,13 @@ import useStyles from './styles.js';
 const Map = ({ coords, places, setCoords, setBounds, setChildClicked }) => {
   const matches = useMediaQuery('(min-width:600px)');
   const classes = useStyles();
+
+  const getImage = (type) => {
+    if (type === 1) return '/house.png';
+    if (type === 2) return '/land.png';
+    if (type === 3) return '/office.png';
+    return '/house.png';
+  };
 
   return (
     <div className={classes.mapContainer}>
@@ -39,11 +46,18 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked }) => {
                   elevation={3}
                   className={classes.paper}
                 >
-                  <img
-                    className={classes.pointer}
-                    style={{ height: '40px', width: '40px' }}
-                    src={place.status === 'Rental' ? '/for_rent.png' : '/for_sale.png'}
-                  />
+                  <Box display="flex" justifyContent="left" my={2}>
+                    <img
+                      className={classes.pointer}
+                      style={{ height: '20px', width: '20px' }}
+                      src={place.status === 'Rental' ? '/for_rent.png' : '/for_sale.png'}
+                    />
+                    <img
+                      className={classes.pointer}
+                      style={{ height: '20px', width: '20px' }}
+                      src={getImage(place.type)}
+                    />
+                  </Box>
                   <Typography className={classes.typography} variant="subtitle1" gutterBottom> {place.name}</Typography>
                   <Typography className={classes.typography} variant="inherit" gutterBottom> Cost: {Intl.NumberFormat('tr-TR').format(place.price)} TL</Typography>
                 </Paper>
