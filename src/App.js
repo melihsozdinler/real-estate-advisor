@@ -8,6 +8,7 @@ import Map from './components/Map/Map';
 
 const App = () => {
   const [status, setStatus] = useState('Rental');
+  const [propertyType, setPropertyType] = useState('4');
   const [searchText, setSearchText] = useState('');
   const [searchEnter, setSearchEnter] = useState('');
   const [rating, setRating] = useState('');
@@ -37,7 +38,7 @@ const App = () => {
     if (bounds) {
       setIsLoading(true);
 
-      getPropertyData(status, searchText)
+      getPropertyData(status, searchText, propertyType)
         .then((data) => {
           if (data !== undefined) {
             setPlaces(data.filter((place) => place.name && place.reviews > 0));
@@ -47,7 +48,7 @@ const App = () => {
           setIsLoading(false);
         });
     }
-  }, [bounds, status, searchEnter]);
+  }, [bounds, status, searchEnter, propertyType]);
 
   return (
     <>
@@ -63,13 +64,15 @@ const App = () => {
             isLoading={isLoading}
             childClicked={childClicked}
             places={filteredPlaces.length ? filteredPlaces : places}
-            type={status}
+            status={status}
             setStatus={setStatus}
             rating={rating}
             setRating={setRating}
             searchText={searchText}
             setSearchText={setSearchText}
             setSearchEnter={setSearchEnter}
+            propertyType={propertyType}
+            setPropertyType={setPropertyType}
           />
         </Grid>
         <Grid item xs={12} md={9} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

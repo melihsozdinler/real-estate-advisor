@@ -4,7 +4,7 @@ import { CircularProgress, Grid, Typography, InputLabel, Input, MenuItem, FormCo
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles.js';
 
-const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoading, searchText, setSearchText, setSearchEnter }) => {
+const List = ({ places, status, setStatus, rating, setRating, childClicked, isLoading, searchText, setSearchText, setSearchEnter, propertyType, setPropertyType }) => {
   const [elRefs, setElRefs] = useState([]);
   const classes = useStyles();
 
@@ -31,8 +31,17 @@ const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoad
       ) : (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel id="type">Status</InputLabel>
-            <Select id="type" value={type} onChange={(e) => setStatus(e.target.value)} ref={inputRef}>
+            <InputLabel id="type">Type</InputLabel>
+            <Select id="type" value={propertyType} onChange={(e) => setPropertyType(e.target.value)}>
+              <MenuItem value="1">Home</MenuItem>
+              <MenuItem value="2">Land</MenuItem>
+              <MenuItem value="3">Office</MenuItem>
+              <MenuItem value="4">All</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="status">Status</InputLabel>
+            <Select id="status" value={status} onChange={(e) => setStatus(e.target.value)} ref={inputRef}>
               <MenuItem value="Rental">Rental</MenuItem>
               <MenuItem value="Sale">Sale</MenuItem>
             </Select>
