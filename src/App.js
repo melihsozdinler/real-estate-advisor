@@ -18,7 +18,6 @@ const App = () => {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [places, setPlaces] = useState([]);
 
-  const [autocomplete, setAutocomplete] = useState(null);
   const [childClicked, setChildClicked] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,29 +39,24 @@ const App = () => {
 
       getPropertyData(status, searchText)
         .then((data) => {
-          if (data !== null) {
+          if (data !== undefined) {
             setPlaces(data.filter((place) => place.name && place.reviews > 0));
             setFilteredPlaces([]);
             setRating('');
-            setIsLoading(false);
           }
+          setIsLoading(false);
         });
     }
   }, [bounds, status, searchEnter]);
 
-  const onLoad = (autoC) => setAutocomplete(autoC);
-
-  const onPlaceChanged = () => {
-    const lat = autocomplete.getPlace().geometry.location.lat();
-    const lng = autocomplete.getPlace().geometry.location.lng();
-
-    setCoords({ lat, lng });
-  };
-
   return (
     <>
       <CssBaseline />
-      <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad} />
+      <Header
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setSearchEnter={setSearchEnter}
+      />
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={3}>
           <List

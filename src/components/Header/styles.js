@@ -29,5 +29,8 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex', justifyContent: 'space-between', backgroundColor: '#2196f3',
   },
+  formControl: {
+    display: 'flex', margin: theme.spacing(1), minWidth: 120,
+  },
 }));
 

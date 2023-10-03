@@ -1,12 +1,19 @@
-import React from 'react';
-import { Autocomplete } from '@react-google-maps/api';
-import { AppBar, Toolbar, Typography, InputBase, Box } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { useRef } from 'react';
+import { AppBar, Toolbar, Typography, InputBase, FormControl } from '@material-ui/core';
 
 import useStyles from './styles.js';
 
-const Header = ({ onPlaceChanged, onLoad }) => {
+const Header = ({ searchText, setSearchText, setSearchEnter }) => {
   const classes = useStyles();
+
+  const inputRef = useRef(null);
+
+  const handleOnChange = (event) => {
+    setSearchText(event.target.value);
+    if (event.key === 'Enter') {
+      setSearchEnter(event.target.value);
+    }
+  };
 
   return (
     <AppBar position="static">
@@ -14,19 +21,9 @@ const Header = ({ onPlaceChanged, onLoad }) => {
         <Typography variant="h5" className={classes.title}>
           Real Estate Advisor
         </Typography>
-        <Box display="flex">
-          <Typography variant="h6" className={classes.title}>
-            Explore Property
-          </Typography>
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput }} />
-            </div>
-          </Autocomplete>
-        </Box>
+        <FormControl>
+          <InputBase type="hidden" className={classes.inputInput} placeholder="Search…" ref={inputRef} id="searchText" value={searchText} onChange={(e) => handleOnChange(e)} onKeyDown={(e) => handleOnChange(e)} />
+        </FormControl>
       </Toolbar>
     </AppBar>
   );
