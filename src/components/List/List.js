@@ -1,16 +1,25 @@
-import React, { useState, useEffect, createRef } from 'react';
-import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import React, { useState, useRef, useEffect, createRef } from 'react';
+import { CircularProgress, Grid, Typography, InputLabel, Input, MenuItem, FormControl, Select } from '@material-ui/core';
 
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles.js';
 
-const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoading }) => {
+const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoading, searchText, setSearchText, setSearchEnter }) => {
   const [elRefs, setElRefs] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
     setElRefs((refs) => Array(places.length).fill().map((_, i) => refs[i] || createRef()));
   }, [places]);
+
+  const inputRef = useRef(null);
+
+  const handleOnChange = (event) => {
+    setSearchText(event.target.value);
+    if (event.key === 'Enter') {
+      setSearchEnter(event.target.value);
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -22,8 +31,8 @@ const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoad
       ) : (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel id="type">Type</InputLabel>
-            <Select id="type" value={type} onChange={(e) => setStatus(e.target.value)}>
+            <InputLabel id="type">Status</InputLabel>
+            <Select id="type" value={type} onChange={(e) => setStatus(e.target.value)} ref={inputRef}>
               <MenuItem value="Rental">Rental</MenuItem>
               <MenuItem value="Sale">Sale</MenuItem>
             </Select>
@@ -36,6 +45,10 @@ const List = ({ places, type, setStatus, rating, setRating, childClicked, isLoad
               <MenuItem value="3">Above 3.0</MenuItem>
               <MenuItem value="4">Above 4.0</MenuItem>
             </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="searchText">Text:</InputLabel>
+            <Input ref={inputRef} id="searchText" value={searchText} onChange={(e) => handleOnChange(e)} onKeyDown={(e) => handleOnChange(e)} />
           </FormControl>
           <Grid container spacing={3} className={classes.list}>
             {places?.map((place, i) => (

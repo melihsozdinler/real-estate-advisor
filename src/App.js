@@ -8,6 +8,8 @@ import Map from './components/Map/Map';
 
 const App = () => {
   const [status, setStatus] = useState('Rental');
+  const [searchText, setSearchText] = useState('');
+  const [searchEnter, setSearchEnter] = useState('');
   const [rating, setRating] = useState('');
 
   const [coords, setCoords] = useState({});
@@ -36,7 +38,7 @@ const App = () => {
     if (bounds) {
       setIsLoading(true);
 
-      getPropertyData(status)
+      getPropertyData(status, searchText)
         .then((data) => {
           setPlaces(data.filter((place) => place.name && place.reviews > 0));
           setFilteredPlaces([]);
@@ -45,7 +47,7 @@ const App = () => {
           console.log(data);
         });
     }
-  }, [bounds, status]);
+  }, [bounds, status, searchEnter]);
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
@@ -70,6 +72,9 @@ const App = () => {
             setStatus={setStatus}
             rating={rating}
             setRating={setRating}
+            searchText={searchText}
+            setSearchText={setSearchText}
+            setSearchEnter={setSearchEnter}
           />
         </Grid>
         <Grid item xs={12} md={9} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
